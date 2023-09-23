@@ -1,6 +1,8 @@
 package main
 
 func HandleMessage(message WireTransmission) {
-	// TODO: Implement
+	switch message.Headers.Get("type") {
+	// TODO: Implement message handling
+	}
 	return
 }
