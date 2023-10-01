@@ -3,6 +3,7 @@ package main
 import (
 	"machine"
 	"strconv"
+	"time"
 )
 
 const StartHeader = 0x01
@@ -26,6 +27,9 @@ var currentHeader []byte
 var currentBody []byte
 var currentChecksum []byte
 
+var isLightOn = false
+var lightOffTime = time.Now()
+
 func ErrSerialLog(err error) {
 	if err != nil {
 		_, _ = machine.Serial.Write([]byte(err.Error()))
@@ -40,6 +44,13 @@ func main() {
 
 	// Run loop forever
 	for {
+		if isLightOn {
+			if time.Since(lightOffTime) > 0 {
+				machine.LED.Low()
+				isLightOn = false
+			}
+		}
+
 		// RECEIVING CODE
 		for machine.UART0.Buffered() > 0 {
 			data, err := machine.UART0.ReadByte()
