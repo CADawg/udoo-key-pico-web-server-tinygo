@@ -5,6 +5,14 @@ func HandleMessage(message WireTransmission) {
 
 	switch message.Headers.Get("type") {
 	// TODO: Implement message handling
+	case "ping":
+		wt := WireTransmission{
+			Headers: Headers{
+				{"type", "pong"},
+			},
+		}
+
+		_ = SendMessage(wt)
 	}
 	return
 }
