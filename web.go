@@ -9,7 +9,7 @@ import (
 //go:embed web/include/*
 var webFilesNonRoot embed.FS
 
-var webFiles = MustSubFS(webFilesNonRoot, "web")
+var webFiles = MustSubFS(webFilesNonRoot, "include")
 
 func subFS(currentFs fs.FS, root string) (fs.FS, error) {
 	root = filepath.ToSlash(filepath.Clean(root)) // note: fs.FS operates only with slashes. `ToSlash` is necessary for Windows
@@ -22,4 +22,15 @@ func MustSubFS(currentFs fs.FS, root string) fs.FS {
 		panic(err)
 	}
 	return fsOut
+}
+
+func HttpGetFile(filename string) ([]byte, error) {
+	if filename == "" {
+		filename = "index.html"
+	}
+
+	// flash led to show file access
+	TurnOnLed()
+
+	return fs.ReadFile(webFiles, filename)
 }

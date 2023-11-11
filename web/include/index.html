@@ -6,11 +6,14 @@
     <link href="index.css" type="text/css" rel="stylesheet" />
     <script src="index.js" type="application/javascript"></script>
     <noscript>
+        <!--suppress CssUnusedSymbol -->
         <style>
             #website-zoom-container {
-                position: relative;
-
                 transform: none;
+            }
+
+            #scroll-down {
+                display: none;
             }
         </style>
     </noscript>
@@ -41,15 +44,16 @@
                 <p>...only to forget about it. But come 7th September, it arrived. With no specific plans in mind, I decided to craft this website for kicks.</p>
 
                 <h2>The Motivation</h2>
-                <p>Why not? It’s a quirky yet fun way to utilize this microcontroller, given I had no other immediate use for it. I might temporarily or permanently take down this site in the future to experiment with the board further. Plus, it served as a nice pretext to delve into some C++ and lower-level programming, though I sidestepped that a bit by employing Go for the Pi Pico.</p>
+                <p>Why not? It’s a quirky yet fun way to utilize this microcontroller, given I had no other immediate use for it. I might temporarily or permanently take down this site in the future to experiment with the board further. Plus, it served as a nice pretext to delve into some C++ and lower-level programming, though I sidestepped that a bit by employing Go for the Pi Pico. It's also the first time in a while which I've developed a site with no requirement to run javascript.</p>
 
                 <h2>The Methodology</h2>
-                <p>This site is engineered as two distinct programs interacting via the serial channel. On one side, the ESP32 handles caching and web serving, coded in Arduino C++ with PlatformIO within CLion. On the other, the Pi Pico houses the website, scripted in Go using Goland. The source code is accessible <a href="" target="_blank">here</a> and <a href="" target="_blank">here</a>.</p>
+                <p>This site is engineered as two distinct programs interacting via the serial channel. On one side, the ESP32 handles caching and web serving, coded in Arduino C++ with PlatformIO within CLion. On the other, the Pi Pico houses the website, scripted in Go using Goland. The source code is accessible <a href="https://github.com/CADawg/udoo-key-esp32-web-server-arduino-platformio-cpp" target="_blank">here [ESP32, C++]</a> and <a href="https://github.com/CADawg/udoo-key-pico-web-server-tinygo" target="_blank">here [Pi Pico, TinyGo]</a>.</p>
             </div>
         </section>
 
         <section class="blog-post">
                 <p class="small">Get it... the website is stupidly small in many ways :D. Another silly project from <a href="https://github.com/CADawg">CADawg</a>. <a href="https://keyoxide.org/git%40dbuidl.com">PGP + Find me elsewhere</a>.</p>
+                <p class="small">This website is hosted on a <a href="https://www.udoo.org/udoo-key/" target="_blank">UDOO KEY</a> 2-in-1 Microcontroller. Served fresh for you at {utc_timestamp}. This page was served from {serve_location}.</p>
         </section>
     </div>
 </body>

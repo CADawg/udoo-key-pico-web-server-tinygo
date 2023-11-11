@@ -13,7 +13,7 @@ body, html {
 
 a {
   color: inherit;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .blog-post {
@@ -89,13 +89,14 @@ a {
   }
 
   h2 {
-    font-size: $font-size-5x-large;
+    font-size: $font-size-x-large;
     margin-top: $size-medium;
     margin-bottom: $size-small;
+    font-weight: bold;
   }
 
   p {
-    font-size: $font-size-x-large;
+    font-size: $font-size-large;
 
     &.small {
       font-size: $font-size-medium;
@@ -113,6 +114,9 @@ a {
 
   transform: scale(0.3);
   transform-origin: top center;
+
+  min-height: 100vh;
+  padding: $size-medium;
 }
 
 #scroll-down {
