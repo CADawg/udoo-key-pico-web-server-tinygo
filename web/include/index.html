@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A stupidly small website</title>
+    <link href="index.css" type="text/css" rel="stylesheet" />
+    <script src="index.js" type="application/javascript"></script>
+    <noscript>
+        <style>
+            #website-zoom-container {
+                position: relative;
+
+                transform: none;
+            }
+        </style>
+    </noscript>
+</head>
+<body>
+    <div id="scroll-down">
+        <h1>Scroll down...</h1>
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path fill="currentColor" d="M0 192H176V0H160C71.6 0 0 71.6 0 160v32zm0 32V352c0 88.4 71.6 160 160 160h64c88.4 0 160-71.6 160-160V224H192 0zm384-32V160C384 71.6 312.4 0 224 0H208V192H384z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path fill="currentColor" d="M2 334.5c-3.8 8.8-2 19 4.6 26l136 144c4.5 4.8 10.8 7.5 17.4 7.5s12.9-2.7 17.4-7.5l136-144c6.6-7 8.4-17.2 4.6-26s-12.5-14.5-22-14.5l-72 0 0-288c0-17.7-14.3-32-32-32L128 0C110.3 0 96 14.3 96 32l0 288-72 0c-9.6 0-18.2 5.7-22 14.5z"/></svg>
+    </div>
+    <!-- we will shrink this down as it is the "stupidly small website" and as you scroll make this bigger, so it's actually legible -->
+    <div id="website-zoom-container">
+
+        <section class="blog-post">
+            <div class="blog-header">
+                <h1 class="blog-title">Launching a website on a UDOO KEY (Pi Pico + ESP32 2 in 1)</h1>
+                <span class="blog-title-decoration">2023-11-01</span>
+                <svg class="blog-title-icon" aria-description="hard drive icon" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path fill="currentColor" d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V280.4c-17-15.2-39.4-24.4-64-24.4H64c-24.6 0-47 9.2-64 24.4V96zM64 288H448c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V352c0-35.3 28.7-64 64-64zM320 416a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm128-32a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg>
+            </div>
+
+            <div class="blog-content">
+                <p>I've built and hosted this entire website on a <a href="" target="_blank">UDOO KEY</a> 2-in-1 Microcontroller, which I had pre-ordered a while back...</p>
+
+                <figure>
+                    <img src="media/pledge_date.webp" alt="Pledge date">
+                </figure>
+
+                <p>...only to forget about it. But come 7th September, it arrived. With no specific plans in mind, I decided to craft this website for kicks.</p>
+
+                <h2>The Motivation</h2>
+                <p>Why not? It’s a quirky yet fun way to utilize this microcontroller, given I had no other immediate use for it. I might temporarily or permanently take down this site in the future to experiment with the board further. Plus, it served as a nice pretext to delve into some C++ and lower-level programming, though I sidestepped that a bit by employing Go for the Pi Pico.</p>
+
+                <h2>The Methodology</h2>
+                <p>This site is engineered as two distinct programs interacting via the serial channel. On one side, the ESP32 handles caching and web serving, coded in Arduino C++ with PlatformIO within CLion. On the other, the Pi Pico houses the website, scripted in Go using Goland. The source code is accessible <a href="" target="_blank">here</a> and <a href="" target="_blank">here</a>.</p>
+            </div>
+        </section>
+
+        <section class="blog-post">
+                <p class="small">Get it... the website is stupidly small in many ways :D. Another silly project from <a href="https://github.com/CADawg">CADawg</a>. <a href="https://keyoxide.org/git%40dbuidl.com">PGP + Find me elsewhere</a>.</p>
+        </section>
+    </div>
+</body>
+</html>

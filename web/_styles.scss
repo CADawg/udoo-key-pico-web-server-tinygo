@@ -1,0 +1,131 @@
+@import "variables";
+@import "open-color";
+
+body, html {
+  // did consider getting a nice
+  font-family: -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+
+  background-color: $oc-gray-8;
+  color: $oc-gray-2;
+
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.blog-post {
+  max-width: $size-13x-large;
+  margin: 20px auto;
+  background-color: $oc-gray-9;
+  padding: $size-2x-large $size-4x-large;
+  position: relative;
+  border-radius: 5px;
+
+  .blog-header {
+    position: relative;
+    padding-bottom: $size-2x-large;
+
+    .blog-title {
+      margin-bottom: $size-small;
+      margin-right: $size-large;
+      font-size: $font-size-2x-large;
+      font-weight: bold;
+      position: relative;
+    }
+
+    .blog-title-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: $oc-gray-3;
+      font-size: $icon-medium;
+    }
+
+    .blog-title-decoration {
+      position: absolute;
+      bottom: 0;
+      left: -1 * $size-4x-large;
+      width: $size-7x-large;
+      height: $size-2x-large;
+      margin-bottom: $size-x-small;
+      padding-right: $size-2x-large;
+      padding-left: $size-small;
+
+      background-color: $oc-red-8;
+
+      text-align: center;
+      justify-content: center;
+
+      user-select: none;
+
+      line-height: $size-2x-large;
+      font-weight: bold;
+
+      &::before {
+        // equilateral triangle against the end to make it look like a snake tongue, should be $oc-grey-9 to make it blend in
+        // so it looks like a tab coming out of a folder (point like this < inwards to make two triangles at the end)
+        content: "";
+        position: absolute;
+        top: 1px;
+        right: 0;
+        border-top: $size-x-large solid transparent;
+        border-right: $size-x-large solid $oc-gray-9;
+      }
+
+      &::after {
+        // equilateral triangle against the end to make it look like a snake tongue, should be $oc-grey-9 to make it blend in
+        // so it looks like a tab coming out of a folder (point like this < inwards to make two triangles at the end)
+        content: "";
+        position: absolute;
+        bottom: 1px;
+        right: 0;
+        border-left: $size-x-large solid transparent;
+        border-top: $size-x-large solid $oc-gray-9;
+      }
+    }
+  }
+
+  h2 {
+    font-size: $font-size-5x-large;
+    margin-top: $size-medium;
+    margin-bottom: $size-small;
+  }
+
+  p {
+    font-size: $font-size-x-large;
+
+    &.small {
+      font-size: $font-size-medium;
+
+      a {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// starts small at the bottom of the screen and then becomes full size when you scroll down
+#website-zoom-container {
+  position: relative;
+
+  transform: scale(0.3);
+  transform-origin: top center;
+}
+
+#scroll-down {
+  height: 80vh;
+  text-align: center;
+
+  h1 {
+    font-size: $font-size-8x-large;
+    margin-top: $size-4x-large;
+    margin-bottom: $size-2x-large;
+  }
+
+  svg {
+    font-size: $icon-2x-large;
+  }
+}
