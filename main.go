@@ -37,13 +37,14 @@ func ErrSerialLog(err error) {
 }
 
 func main() {
-
 	machine.LED.Configure(machine.PinConfig{Mode: machine.PinOutput})
-	ErrSerialLog(machine.Serial.Configure(machine.UARTConfig{BaudRate: 921600}))
-	ErrSerialLog(machine.UART0.Configure(machine.UARTConfig{BaudRate: 921600, RX: machine.UART0_RX_PIN, TX: machine.UART0_TX_PIN}))
+	ErrSerialLog(machine.Serial.Configure(machine.UARTConfig{BaudRate: 115200}))
+	ErrSerialLog(machine.UART0.Configure(machine.UARTConfig{BaudRate: 115200, RX: machine.UART0_RX_PIN, TX: machine.UART0_TX_PIN}))
 
 	// Run loop forever
 	for {
+		// todo: add print debugging to http (/dev/ttyACM0 is the serial port for the pi when the button is held down on the UDOO key)
+
 		if isLightOn {
 			if time.Since(lightOffTime) > 0 {
 				machine.LED.Low()

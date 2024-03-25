@@ -1,5 +1,7 @@
 package main
 
+import "machine"
+
 func HandleMessage(message WireTransmission) {
 	TurnOnLed() // so we can see transmissions
 
@@ -16,9 +18,15 @@ func HandleMessage(message WireTransmission) {
 	case "http":
 		url := message.Headers.Get("url")
 
+		machine.Serial.Write([]byte("HTTP GET: " + url + "\n"))
+
 		file, err := HttpGetFile(url)
 
+		machine.Serial.Write([]byte("HTTP GET: " + url + " done\n"))
+
 		if err != nil {
+			machine.Serial.Write([]byte("HTTP GET: " + url + " error: " + err.Error() + "\n"))
+
 			wt := WireTransmission{
 				Headers: Headers{
 					{"type", "http"},
@@ -29,8 +37,16 @@ func HandleMessage(message WireTransmission) {
 				Body: err.Error(),
 			}
 
-			_ = SendMessage(wt)
+			machine.Serial.Write([]byte("HTTP GET: " + url + " error response\n"))
+
+			err = SendMessage(wt)
+
+			if err != nil {
+				machine.Serial.Write([]byte("HTTP GET: " + url + " error response error: " + err.Error() + "\n"))
+			}
 		} else {
+			machine.Serial.Write([]byte("HTTP GET: " + url + " success\n"))
+
 			wt := WireTransmission{
 				Headers: Headers{
 					{"type", "http"},
@@ -41,7 +57,15 @@ func HandleMessage(message WireTransmission) {
 				Body: string(file),
 			}
 
-			_ = SendMessage(wt)
+			machine.Serial.Write([]byte("HTTP GET: " + url + " success response\n"))
+
+			err = SendMessage(wt)
+
+			if err != nil {
+				machine.Serial.Write([]byte("HTTP GET: " + url + " success response error: " + err.Error() + "\n"))
+			}
+
+			machine.Serial.Write([]byte("HTTP GET: " + url + " success response sent\n"))
 		}
 	}
 	return

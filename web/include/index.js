@@ -1,4 +1,6 @@
 window.addEventListener('load', function() {
+    let ticking = false;
+
     const websiteZoomContainer = document.getElementById('website-zoom-container');
 
     function onScroll() {
@@ -23,7 +25,16 @@ window.addEventListener('load', function() {
         }
     }
 
-    window.addEventListener('scroll', () => window.requestAnimationFrame(onScroll));
+
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                onScroll();
+                ticking = false;
+            });
+        }
+        ticking = true;
+    });
 
     onScroll(); // Trigger scroll event to set initial values
 });
