@@ -98,7 +98,7 @@ func (w *WireTransmission) Serialize() ([]byte, error) {
 }
 
 func EncodeByteSafe(b byte) []byte {
-	if b == StartHeader || b == StartText || b == EndText || b == EndTransmission {
+	if b == StartHeader || b == StartText || b == EndText || b == EndTransmission || b == EscapeChar {
 		return []byte{EscapeChar, b}
 	}
 
