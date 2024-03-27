@@ -16,6 +16,15 @@ a {
   text-decoration: underline;
 }
 
+figure {
+  display: flex;
+  margin: 10px 0;
+
+  img {
+    margin: 0 auto;
+  }
+}
+
 .blog-post {
   max-width: $size-13x-large;
   margin: 20px auto;

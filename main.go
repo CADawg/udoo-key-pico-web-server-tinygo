@@ -81,7 +81,7 @@ func main() {
 
 			// process rebroadcast requests
 			if msg.Headers.Get("type") == "requestRebroadcast" {
-				intID, err := strconv.Atoi(msg.Body)
+				intID, err := strconv.Atoi(string(msg.Body))
 
 				if err != nil {
 					ErrSerialLog(Rebroadcast(intID))

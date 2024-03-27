@@ -1,6 +1,8 @@
 package main
 
-import "machine"
+import (
+	"machine"
+)
 
 func HandleMessage(message WireTransmission) {
 	TurnOnLed() // so we can see transmissions
@@ -18,14 +20,14 @@ func HandleMessage(message WireTransmission) {
 	case "http":
 		url := message.Headers.Get("url")
 
-		machine.Serial.Write([]byte("HTTP GET: " + url + "\n"))
+		_, _ = machine.Serial.Write([]byte("\n\rHTTP GET: " + url))
 
 		file, err := HttpGetFile(url)
 
-		machine.Serial.Write([]byte("HTTP GET: " + url + " done\n"))
+		_, _ = machine.Serial.Write([]byte("\n\rHTTP GET: " + url + " done"))
 
 		if err != nil {
-			machine.Serial.Write([]byte("HTTP GET: " + url + " error: " + err.Error() + "\n"))
+			_, _ = machine.Serial.Write([]byte("\n\rHTTP GET: " + url + " error: " + err.Error() + "\n\n"))
 
 			wt := WireTransmission{
 				Headers: Headers{
@@ -34,18 +36,18 @@ func HandleMessage(message WireTransmission) {
 					{"status", "error"},
 					{"responseTo", message.Headers.Get("id")},
 				},
-				Body: err.Error(),
+				Body: []byte(err.Error()),
 			}
 
-			machine.Serial.Write([]byte("HTTP GET: " + url + " error response\n"))
+			_, _ = machine.Serial.Write([]byte("\n\rHTTP GET: " + url + " error response"))
 
 			err = SendMessage(wt)
 
 			if err != nil {
-				machine.Serial.Write([]byte("HTTP GET: " + url + " error response error: " + err.Error() + "\n"))
+				_, _ = machine.Serial.Write([]byte("\n\rHTTP GET: " + url + " error response error: " + err.Error()))
 			}
 		} else {
-			machine.Serial.Write([]byte("HTTP GET: " + url + " success\n"))
+			_, _ = machine.Serial.Write([]byte("\n\rHTTP GET: " + url + " success"))
 
 			wt := WireTransmission{
 				Headers: Headers{
@@ -54,18 +56,18 @@ func HandleMessage(message WireTransmission) {
 					{"status", "ok"},
 					{"responseTo", message.Headers.Get("id")},
 				},
-				Body: string(file),
+				Body: file,
 			}
 
-			machine.Serial.Write([]byte("HTTP GET: " + url + " success response\n"))
+			_, _ = machine.Serial.Write([]byte("HTTP GET: " + url + " success response\n"))
 
 			err = SendMessage(wt)
 
 			if err != nil {
-				machine.Serial.Write([]byte("HTTP GET: " + url + " success response error: " + err.Error() + "\n"))
+				_, _ = machine.Serial.Write([]byte("HTTP GET: " + url + " success response error: " + err.Error() + "\n"))
 			}
 
-			machine.Serial.Write([]byte("HTTP GET: " + url + " success response sent\n"))
+			_, _ = machine.Serial.Write([]byte("HTTP GET: " + url + " success response sent\n"))
 		}
 	}
 	return

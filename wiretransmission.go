@@ -11,16 +11,16 @@ var ErrChecksumInvalidRequestedRebroadcast = fmt.Errorf("checksum invalid, reque
 
 type WireTransmission struct {
 	Headers  Headers
-	Body     string
+	Body     []byte
 	Checksum []byte
 }
 
-func (w *WireTransmission) Deserialize(headers string, body string, checksum []byte) error {
+func (w *WireTransmission) Deserialize(headers string, body []byte, checksum []byte) error {
 	// deserialize headers
 	err := w.Headers.Deserialize(headers)
 
 	// check checksum
-	if bytesToCrc32(checksum) != crc32.ChecksumIEEE([]byte(headers+body)) {
+	if bytesToCrc32(checksum) != crc32.ChecksumIEEE([]byte(headers+string(body))) {
 		id := w.Headers.Get("id")
 
 		if id != "" {
@@ -69,7 +69,7 @@ func (w *WireTransmission) Serialize() ([]byte, error) {
 	// serialize headers
 	headersSerialized, err := w.Headers.Serialize()
 
-	w.Checksum = crc32ToBytes([]byte(headersSerialized + w.Body))
+	w.Checksum = crc32ToBytes([]byte(headersSerialized + string(w.Body)))
 
 	if err != nil {
 		return nil, err
@@ -77,8 +77,7 @@ func (w *WireTransmission) Serialize() ([]byte, error) {
 
 	// convert text to byte arrays (can't send int32 over the wire directly)
 	byteArrayHeader := []byte(headersSerialized)
-	byteArrayBody := []byte(w.Body)
-
+	byteArrayBody := w.Body
 	// send the header
 	encoded := []byte{StartHeader}
 	for _, b := range byteArrayHeader {

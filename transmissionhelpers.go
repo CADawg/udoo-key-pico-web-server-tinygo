@@ -37,7 +37,7 @@ func RequestRebroadcast(id int) error {
 		Headers: Headers{
 			{"type", "requestRebroadcast"},
 		},
-		Body: strconv.Itoa(id),
+		Body: []byte(strconv.Itoa(id)),
 	}
 
 	return SendMessage(wt)
@@ -97,7 +97,7 @@ func HandleReceiveByte(data byte) {
 
 		// casting to string should be enough to utf-8 decode the bytes
 		wt := WireTransmission{}
-		err := wt.Deserialize(string(currentHeader), string(currentBody), currentChecksum)
+		err := wt.Deserialize(string(currentHeader), currentBody, currentChecksum)
 
 		if err != nil {
 			ErrSerialLog(err)
