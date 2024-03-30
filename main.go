@@ -67,7 +67,7 @@ func main() {
 			}
 		}
 
-		if time.Since(LastPacketReceived) > 5*time.Second && IsStreaming() {
+		if time.Since(LastPacketReceived) > 50*time.Millisecond && IsStreaming() {
 			// might as well see if we can get any data out of it, cuz the checksum will tell us if it's corrupted
 			HandleReceiveByte(EndTransmission)
 		}
