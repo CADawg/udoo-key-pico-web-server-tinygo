@@ -30,11 +30,15 @@ var currentChecksum []byte
 var isLightOn = false
 var lightOffTime = time.Now()
 
+var LastPacketReceived = time.Now()
+
 func ErrSerialLog(err error) {
 	if err != nil {
 		_, _ = machine.Serial.Write([]byte(err.Error()))
 	}
 }
+
+// need to check why it hangs and probably kill hung packets after a timeout
 
 func main() {
 	machine.LED.Configure(machine.PinConfig{Mode: machine.PinOutput})
@@ -56,9 +60,16 @@ func main() {
 		for machine.UART0.Buffered() > 0 {
 			data, err := machine.UART0.ReadByte()
 
+			LastPacketReceived = time.Now()
+
 			if err == nil {
 				HandleReceiveByte(data)
 			}
+		}
+
+		if time.Since(LastPacketReceived) > 5*time.Second && IsStreaming() {
+			// might as well see if we can get any data out of it, cuz the checksum will tell us if it's corrupted
+			HandleReceiveByte(EndTransmission)
 		}
 
 		// SENDING CODE

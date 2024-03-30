@@ -5,6 +5,10 @@ import (
 	"strconv"
 )
 
+func IsStreaming() bool {
+	return isStreamingHeader || isStreamingBody || isStreamingChecksum
+}
+
 func GetAvailableID() int {
 	sendCacheIndex += 1
 	if sendCacheIndex >= len(sendCache) {
